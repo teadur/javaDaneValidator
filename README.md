@@ -1,1 +1,1 @@
-DANE validaator
+* Simple DANE validator based on "The Bouncy Castle Crypto Package For Java" library https://github.com/bcgit/bc-java
