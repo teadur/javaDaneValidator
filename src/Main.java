@@ -5,9 +5,8 @@
 /**
 package org.bouncycastle.lebcpkix-jdk15on;
 package org.bouncycastle.cert.test;
+*/
 
 public class Main {
 
  }
-
- */

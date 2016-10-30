@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8_oracle_101" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.bouncycastle:bcpkix-jdk15on:1.55" level="project" />
     <orderEntry type="library" name="org.bouncycastle:bctsp-jdk15+:1.46" level="project" />
