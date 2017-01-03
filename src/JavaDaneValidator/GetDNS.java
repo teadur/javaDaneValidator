@@ -1,7 +1,6 @@
-import org.xbill.DNS.*;
+package JavaDaneValidator;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import org.xbill.DNS.*;
 import java.util.Iterator;
 
 /**
@@ -9,44 +8,46 @@ import java.util.Iterator;
  */
 public class GetDNS {
 
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String validateurl) throws Exception {
+
 /**
-   Default inet resolver example
-   InetAddress addr = Address.getByName("data.internet.ee");
-    System.out.print(addr);
+ Default inet resolver example
+ InetAddress addr = Address.getByName("data.internet.ee");
+ System.out.print(addr);
 
-**/
+ **/
 
-    /**
-     * GET MX record example
-      Record [] records = new Lookup("gmail.com", Type.MX).run();
-     for (int i = 0; i < records.length; i++) {
-     MXRecord mx = (MXRecord) records[i];
-     System.out.println("Host " + mx.getTarget() + " has preference " + mx.getPriority());
+        /**
+         * GET MX record example
+         Record [] records = new Lookup("gmail.com", Type.MX).run();
+         for (int i = 0; i < records.length; i++) {
+         MXRecord mx = (MXRecord) records[i];
+         System.out.println("Host " + mx.getTarget() + " has preference " + mx.getPriority());
 
-     }
-     **/
+         }
+         **/
 
-    /**
-    GET TLSA Record example
-        Record [] records = new Lookup("_443._tcp.data.internet.ee", Type.TLSA).run();
-        for (int i = 0; i < records.length; i++) {
+        /**
+         GET TLSA Record example
+         Record [] records = new Lookup("_443._tcp.data.internet.ee", Type.TLSA).run();
+         for (int i = 0; i < records.length; i++) {
 
-            TLSARecord tlsaRecord = (TLSARecord) records[i];
-            System.out.println("Host ");
+         TLSARecord tlsaRecord = (TLSARecord) records[i];
+         System.out.println("Host ");
 
-     } **/
+         } **/
 
         String ipAddress = "2.0.0.127";
         String dnsblDomain = "sbl-xbl.spamhaus.org";
-        String validateurl = "data.internet.ee";
+        /** String validateurl = "data.internet.ee"; **/
 
         /** Lookup lookup = new Lookup(ipAddress + "." + dnsblDomain, Type.ANY); **/
 
         /**
          *  Because we handle only https url lets hardcode/append _443._tcp." to validateurl
-          */
-         Lookup lookup = new Lookup("_443._tcp." + validateurl, Type.ANY);
+         */
+        Lookup lookup = new Lookup("_443._tcp." + validateurl, Type.ANY);
 
         /** Lookup lookup = new Lookup("internet.ee", Type.ANY); **/
 
@@ -64,7 +65,7 @@ public class GetDNS {
             String listingType = null;
             for (int i = 0; i < records.length; i++)
             {
-             /** we dont actualy care about TEXTRecords remove me later **/
+                /** we dont actualy care about TEXTRecords remove me later **/
                 if(records[i] instanceof TXTRecord)
                 {
                     TXTRecord txt = (TXTRecord) records[i];
@@ -74,7 +75,7 @@ public class GetDNS {
                     }
                 }
 
-             /** lets handle TLSA records **/
+                /** lets handle TLSA records **/
 
                 if(records[i] instanceof TLSARecord)
                 {
@@ -92,9 +93,9 @@ public class GetDNS {
 
                     listingType = kogustring[3];
                     /** for(Iterator j = tlsaRecord.getName(); j.hasNext();)
-                    {
-                        responseMessage += (String)j.next();
-                    } **/
+                     {
+                     responseMessage += (String)j.next();
+                     } **/
 
                 }
 
@@ -123,4 +124,11 @@ public class GetDNS {
 
 
     }
+
+    public String muutuja(String argument) {
+
+        return argument;
     }
+
+
+}

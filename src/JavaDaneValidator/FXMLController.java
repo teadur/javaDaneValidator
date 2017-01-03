@@ -18,7 +18,12 @@ public class FXMLController {
 
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
         /** actiontarget.setText("Hello world action"); **/
+
         actiontarget.setText(url.getText());
+        /** new GetDNS("test.ee"); **/
+        GetDNS dnskirje = new GetDNS();
+        actiontarget.setText(dnskirje.muutuja(url.getText()));
+
     }
     @FXML protected void handleSubmitButtonExit(ActionEvent event) {
         Platform.exit();
