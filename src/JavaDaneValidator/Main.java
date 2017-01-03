@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("fxml_sample.fxml"));
-        primaryStage.setTitle("Hello World title");
+        primaryStage.setTitle("TLSA/DANE Fetcher/Validator");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }

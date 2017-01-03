@@ -6,14 +6,19 @@ package JavaDaneValidator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class FXMLController {
     @FXML
     private Text actiontarget;
 
+    @FXML
+    private TextField url;
+
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-        actiontarget.setText("Hello world action");
+        /** actiontarget.setText("Hello world action"); **/
+        actiontarget.setText(url.getText());
     }
     @FXML protected void handleSubmitButtonExit(ActionEvent event) {
         Platform.exit();

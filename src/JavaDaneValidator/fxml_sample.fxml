@@ -6,19 +6,22 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
 <GridPane fx:controller="JavaDaneValidator.FXMLController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 
-    <HBox spacing="10" alignment="bottom_right"
-          GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <Button text="Hello world"
+    <HBox spacing="1" alignment="top_right"
+          GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="url"></TextField>
+        <Button text="Validate"
                 onAction="#handleSubmitButtonAction"/>
     </HBox>
     <HBox spacing="10" alignment="bottom_right"
-          GridPane.columnIndex="2" GridPane.rowIndex="4">
+          GridPane.columnIndex="2" GridPane.rowIndex="5">
         <Button text="Exit"
                 onAction="#handleSubmitButtonExit"/>
     </HBox>
+
     <Text fx:id="actiontarget"
           GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 </GridPane>
