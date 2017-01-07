@@ -21,15 +21,17 @@ public class GetCert {
 
     String url;
     int algo;
-    int selector;
+    int selector ;
     String hexDataFromCert;
+    boolean domainmatch;
 
 
-    public String GetDigest(String argument,int matchingtype, int cert) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+    public String GetDigest(String argument,int matchingtype, int cert, boolean dnsok) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
 
         url = argument;
         algo = matchingtype;
         selector = cert;
+
 
         /**
      *  fix for
@@ -84,34 +86,39 @@ public class GetCert {
             return "Unknown Host";
         }
 
-        Certificate[] certs = connection.getServerCertificates();
-        for (Certificate cer : certs) {
-            System.out.println(cer.getPublicKey());
-            System.out.println(cer.getType());
 
-        }
+            Certificate[] certs = connection.getServerCertificates();
+
+
+            for (Certificate cer : certs) {
+                System.out.println(cer.getPublicKey());
+                System.out.println(cer.getType());
+
+            }
+
+
+
+
+
         /**TODO: kui certe on palju siis tuleb valida õige cert, ilmselt nime järgi - tundub et viga on hoopis selles et kasutusel olev java ei sa SNI-ga väga hästi hakkama
          * http://javabreaks.blogspot.com.ee/2015/12/java-ssl-handshake-with-server-name.html  **/
         X509Certificate x509=(X509Certificate)certs[0];
         /**TODO: algset urli tuleks võrrelda alternatiivsete nimede vastu **/
         System.out.println(x509.getSubjectAlternativeNames());
 
+        if (x509.getSubjectAlternativeNames().toString().contains(url)) {
 
-        /* Collection<?> names = x509.getSubjectAlternativeNames();
-        for (Collection<?> name : names) {
-            System.out.println(name);
-        } */
+            System.out.println("die");
+            System.out.println(x509.getSubjectAlternativeNames().toString());
+            domainmatch = true;
 
-        /*
-
-        if (x509.getSubjectAlternativeNames().contains("data.internet.ee"))   {
-            return "Offered certificate doesnot match url";
         }
-        */
+        System.out.println(domainmatch);
 
-        /* if (x509.getSubjectAlternativeNames().contains(url)) {
-            System.out.println("yipkayee");
-        } */
+        if (domainmatch != true) {
+            return "Certificate doesnot match domain";
+
+        }
 
 
         System.out.println(x509.getPublicKey());
@@ -147,10 +154,16 @@ public class GetCert {
         }
 
         else {
+            if (dnsok == true) {
+                fullcert = certs[0].getEncoded();
+                hexDataFromCert = bytesToHexString(fullcert);
 
-            fullcert = certs[0].getEncoded();
-            hexDataFromCert = bytesToHexString(fullcert);
-            System.out.println("kolmas juhus cerdi arvutamisel");
+                return "siit tuleb hashita vastus";
+            }
+            else {
+
+                return "DNS didnot resolve, wont bother with SSL";
+            }
         }
 
         return hexDataFromCert.toUpperCase();

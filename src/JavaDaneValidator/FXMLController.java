@@ -37,7 +37,7 @@ public class FXMLController {
         Validate validate = new Validate();
 
         String dnshash = dnskirje.getTLSA(url.getText());
-        String sslhash = sslcert.GetDigest(url.getText(),dnskirje.matchingtype,dnskirje.selector);
+        String sslhash = sslcert.GetDigest(url.getText(),dnskirje.matchingtype,dnskirje.selector,dnskirje.dnsok);
         /** String cert = GetCert.main("test"); **/
         /** System.out.println(sslcert); **/
         dns.setText(dnshash);

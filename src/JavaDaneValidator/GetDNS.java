@@ -14,6 +14,7 @@ public class GetDNS {
     int matchingtype;
     int selector;
     String kogustring;
+    boolean dnsok;
 
     public static void main(String[] args)  {
 
@@ -53,6 +54,7 @@ public class GetDNS {
                      *  tlsaRecord.getCertificateAssociationData =  B@3d82c5f3 binaar väljund
                      *  Kui tõesti ei saa kuidagi otse õiget väärtust kätte tuleb ilmselt algset stringi lõhkuda
                      */
+                    dnsok=true;
                     selector = tlsaRecord.getSelector();
                     matchingtype = tlsaRecord.getMatchingType();
                     kogustring =  tlsaRecord.toString();
