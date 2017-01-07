@@ -1,4 +1,4 @@
-/**
+package JavaDaneValidator; /**
  * Created by georg on 3.10.2016.
  */
 import org.bouncycastle.util.encoders.Base64;
@@ -10,6 +10,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.security.MessageDigest;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
@@ -73,37 +74,35 @@ public class GetCert {
         /* algset urli tuleks võrrelda alternatiivsete nimede vastu */
         System.out.println(x509.getSubjectAlternativeNames());
         System.out.println(x509.getSubjectX500Principal());
+        System.out.println(x509.getSubjectUniqueID());
         System.out.println(x509.getSignature().length);
         /* signatuuri tüüpi on vaja digesti arvutamiseks  */
         System.out.println(x509.getSigAlgName());
         System.out.print(x509.getTBSCertificate().toString());
-        byte[]  randomCert = Base64.decode(
-                "MIIDbDCCAtWgAwIBAgIBADANBgkqhkiG9w0BAQQFADCBtzELMAkGA1UEBhMCQVUx"
-                        + "ETAPBgNVBAgTCFZpY3RvcmlhMRgwFgYDVQQHEw9Tb3V0aCBNZWxib3VybmUxGjAY"
-                        + "BgNVBAoTEUNvbm5lY3QgNCBQdHkgTHRkMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBB"
-                        + "dXRob3JpdHkxFTATBgNVBAMTDENvbm5lY3QgNCBDQTEoMCYGCSqGSIb3DQEJARYZ"
-                        + "d2VibWFzdGVyQGNvbm5lY3Q0LmNvbS5hdTAeFw0wMDA2MDIwNzU1MzNaFw0wMTA2"
-                        + "MDIwNzU1MzNaMIG3MQswCQYDVQQGEwJBVTERMA8GA1UECBMIVmljdG9yaWExGDAW"
-                        + "BgNVBAcTD1NvdXRoIE1lbGJvdXJuZTEaMBgGA1UEChMRQ29ubmVjdCA0IFB0eSBM"
-                        + "dGQxHjAcBgNVBAsTFUNlcnRpZmljYXRlIEF1dGhvcml0eTEVMBMGA1UEAxMMQ29u"
-                        + "bmVjdCA0IENBMSgwJgYJKoZIhvcNAQkBFhl3ZWJtYXN0ZXJAY29ubmVjdDQuY29t"
-                        + "LmF1MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgs5ptNG6Qv1ZpCDuUNGmv"
-                        + "rhjqMDPd3ri8JzZNRiiFlBA4e6/ReaO1U8ASewDeQMH6i9R6degFdQRLngbuJP0s"
-                        + "xcEE+SksEWNvygfzLwV9J/q+TQDyJYK52utb++lS0b48A1KPLwEsyL6kOAgelbur"
-                        + "ukwxowprKUIV7Knf1ajetQIDAQABo4GFMIGCMCQGA1UdEQQdMBuBGXdlYm1hc3Rl"
-                        + "ckBjb25uZWN0NC5jb20uYXUwDwYDVR0TBAgwBgEB/wIBADA2BglghkgBhvhCAQ0E"
-                        + "KRYnbW9kX3NzbCBnZW5lcmF0ZWQgY3VzdG9tIENBIGNlcnRpZmljYXRlMBEGCWCG"
-                        + "SAGG+EIBAQQEAwICBDANBgkqhkiG9w0BAQQFAAOBgQCsGvfdghH8pPhlwm1r3pQk"
-                        + "msnLAVIBb01EhbXm2861iXZfWqGQjrGAaA0ZpXNk9oo110yxoqEoSJSzniZa7Xtz"
-                        + "soTwNUpE0SLHvWf/SlKdFWlzXA+vOZbzEv4UmjeelekTm7lc01EEa5QRVzOxHFtQ"
-                        + "DhkaJ8VqOMajkQFma2r9iA==");
-        System.out.println(randomCert);
-        /* X509Certificate random=(X509Certificate)randomCert;
-        System.out.println(randomCert.toString());
-        */
+        System.out.println(x509.getSignature());
+        byte[] hash;
+        String hexDataFromCert;
 
-        byte[] sig = x509.getSignature();
-        System.out.println(new BigInteger(sig).toString(16));
 
+        /** digest valitakse vastavalt dnsi kirjele **/
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        hash = digest.digest(certs[0].getEncoded());
+        hexDataFromCert = bytesToHexString(hash);
+        System.out.println(hexDataFromCert);
+
+    }
+
+    /**
+     * This method converts bytes array to hex String
+     *
+     * @param bytes
+     * @return
+     */
+    public static String bytesToHexString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+        return sb.toString();
     }
 }
