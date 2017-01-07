@@ -5,12 +5,7 @@ package JavaDaneValidator; /**
 
 import java.io.IOException;
 import java.net.URL;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.*;
 import java.security.KeyManagementException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -18,6 +13,8 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GetCert {
@@ -41,6 +38,8 @@ public class GetCert {
      *           PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException:
      *               unable to find valid certification path to requested target
      */
+
+
         TrustManager[] trustAllCerts = new TrustManager[] {
                 new X509TrustManager() {
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -59,20 +58,23 @@ public class GetCert {
         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
         // Create all-trusting host name verifier
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
+        /* HostnameVerifier allHostsValid = new HostnameVerifier() {
             public boolean verify(String hostname, SSLSession session) {
                 return true;
             }
-        };
+        }; */
         // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-
-
-    /**
-     * end of the fix
-     **/
+        /* HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid); */
 
         URL httpsURL = new URL("https://"+ url);
+
+
+
+        /**
+         * end of the fix
+         **/
+
+
 
         HttpsURLConnection connection = (HttpsURLConnection) httpsURL.openConnection();
         try {
