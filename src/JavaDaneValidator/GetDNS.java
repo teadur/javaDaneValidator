@@ -13,6 +13,7 @@ public class GetDNS {
     String hash;
     int matchingtype;
     int selector;
+    String kogustring;
 
     public static void main(String[] args)  {
 
@@ -54,10 +55,11 @@ public class GetDNS {
                      */
                     selector = tlsaRecord.getSelector();
                     matchingtype = tlsaRecord.getMatchingType();
-                    String[] kogustring = tlsaRecord.toString().split(" ");
-                    hash = kogustring[3];
+                    kogustring =  tlsaRecord.toString();
+                    String[] TLSA = tlsaRecord.toString().split(" ");
+                    hash = TLSA[3];
 
-                    responseMessage = kogustring[3];
+                    responseMessage = TLSA[3];
                 }
             }
 
@@ -77,8 +79,9 @@ public class GetDNS {
         System.err.println("Error!");
     }
 
-
+        System.out.println(kogustring);
         return responseMessage;
+
     }
 
 

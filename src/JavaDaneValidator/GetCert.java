@@ -134,13 +134,21 @@ public class GetCert {
 
         else if (algo == 2) {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
-            fullcert = digest.digest(certs[0].getEncoded());
-            hexDataFromCert = bytesToHexString(fullcert);
+            if (selector == 0) {
+                fullcert = digest.digest(certs[0].getEncoded());
+                hexDataFromCert = bytesToHexString(fullcert);
+            }
+            if (selector == 1) {
+                pubkey = digest.digest(certs[0].getPublicKey().getEncoded());
+                hexDataFromCert = bytesToHexString(pubkey);
+            }
         }
 
         else {
+
             fullcert = certs[0].getEncoded();
             hexDataFromCert = bytesToHexString(fullcert);
+            System.out.println("kolmas juhus cerdi arvutamisel");
         }
 
         return hexDataFromCert.toUpperCase();

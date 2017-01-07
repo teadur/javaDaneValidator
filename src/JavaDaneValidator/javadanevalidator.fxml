@@ -14,6 +14,7 @@
     <HBox spacing="1" alignment="top_left"
           GridPane.columnIndex="2" GridPane.rowIndex="1">
         <TextField fx:id="url">freebsd.org</TextField>
+
         <Button text="Validate"
                 onAction="#handleSubmitButtonAction"/>
     </HBox>
