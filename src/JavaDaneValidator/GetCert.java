@@ -26,7 +26,7 @@ import java.security.PublicKey;
 
 public class GetCert {
 
-    public String GetDigest(String url) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+    public String GetDigest(String argument) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
 
        /*
      *  fix for
@@ -64,7 +64,7 @@ public class GetCert {
      * end of the fix
      */
 
-        URL httpsURL = new URL("https://data.internet.ee/");
+        URL httpsURL = new URL("https://"+ argument);
 
         HttpsURLConnection connection = (HttpsURLConnection) httpsURL.openConnection();
         connection.connect();
@@ -98,7 +98,7 @@ public class GetCert {
         hexDataFromCert = bytesToHexString(hash);
         System.out.println(hexDataFromCert);
 
-        return hexDataFromCert;
+        return hexDataFromCert.toUpperCase();
     }
 
     /**

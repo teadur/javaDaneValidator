@@ -8,22 +8,29 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
 <GridPane fx:controller="JavaDaneValidator.FXMLController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
 
-    <HBox spacing="1" alignment="top_right"
-          GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <HBox spacing="1" alignment="top_left"
+          GridPane.columnIndex="2" GridPane.rowIndex="1">
         <TextField fx:id="url">data.internet.ee</TextField>
         <Button text="Validate"
                 onAction="#handleSubmitButtonAction"/>
     </HBox>
-    <HBox spacing="10" alignment="bottom_right"
-          GridPane.columnIndex="2" GridPane.rowIndex="5">
+    <HBox spacing="5" alignment="bottom_right"
+          GridPane.columnIndex="3" GridPane.rowIndex="1">
         <Button text="Exit"
                 onAction="#handleSubmitButtonExit"/>
     </HBox>
 
+    <Text GridPane.columnIndex="1" GridPane.rowIndex="4" >DNS:</Text>
     <Text fx:id="dns"
-          GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+          GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+
+    <Text GridPane.columnIndex="1" GridPane.rowIndex="5" >CERT:</Text>
     <Text fx:id="cert"
-          GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+          GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+
+
+
 </GridPane>
+

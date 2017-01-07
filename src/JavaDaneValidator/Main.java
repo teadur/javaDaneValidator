@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("javadanevalidator.fxml"));
         primaryStage.setTitle("TLSA/DANE Fetcher/Validator");
-        primaryStage.setScene(new Scene(root, 500, 375));
+        primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.show();
     }
 
