@@ -86,7 +86,7 @@ public class GetCert {
         System.out.println(x509.getSignature().length);
         /* signatuuri tüüpi on vaja digesti arvutamiseks  */
         System.out.println(x509.getSigAlgName());
-        System.out.print(x509.getTBSCertificate().toString());
+        /** System.out.print(x509.getTBSCertificate().toString());  **/
         System.out.println(x509.getSignature());
         byte[] hash;
         String hexDataFromCert;
