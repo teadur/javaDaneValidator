@@ -86,6 +86,7 @@ public class GetCert {
             System.out.println(cer.getType());
 
         }
+        /**TODO: kui certe on palju siis tuleb valida õige cert, ilmselt nime järgi **/
         X509Certificate x509=(X509Certificate)certs[0];
         /**TODO: algset urli tuleks võrrelda alternatiivsete nimede vastu **/
         System.out.println(x509.getSubjectAlternativeNames());

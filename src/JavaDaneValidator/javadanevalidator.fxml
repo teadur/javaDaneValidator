@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
 <GridPane fx:controller="JavaDaneValidator.FXMLController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
 

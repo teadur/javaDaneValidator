@@ -4,8 +4,10 @@ package JavaDaneValidator;
  * Created by georg on 3.01.2017.
  */
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 /**
@@ -21,6 +23,9 @@ public class FXMLController {
 
     @FXML
     private TextField url;
+    /** TODO: minna üle comboboxile **/
+    private ComboBox url2;
+
 
     @FXML protected void handleSubmitButtonAction(ActionEvent event) throws Exception {
         /** actiontarget.setText("Hello world action"); **/
