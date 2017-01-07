@@ -1,10 +1,10 @@
 package JavaDaneValidator; /**
  * Created by georg on 3.10.2016.
  */
-import org.bouncycastle.util.encoders.Base64;
+
+import sun.security.x509.SubjectAlternativeNameExtension;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -19,22 +19,22 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
+import java.util.Collection;
 
-/* randomcert deps */
-import java.math.BigInteger;
-import java.security.PublicKey;
 
 public class GetCert {
 
     String url;
     int algo;
+    String hexDataFromCert;
+
 
     public String GetDigest(String argument,int matchingtype) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
 
         url = argument;
         algo = matchingtype;
 
-       /*
+        /**
      *  fix for
      *    Exception in thread "main" javax.net.ssl.SSLHandshakeException:
      *       sun.security.validator.ValidatorException:
@@ -66,11 +66,11 @@ public class GetCert {
         };
         // Install the all-trusting host verifier
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-    /*
+    /**
      * end of the fix
-     */
+     **/
 
-        URL httpsURL = new URL("https://"+ argument);
+        URL httpsURL = new URL("https://"+ url);
 
         HttpsURLConnection connection = (HttpsURLConnection) httpsURL.openConnection();
         connection.connect();
@@ -80,30 +80,50 @@ public class GetCert {
             System.out.println(cer.getType());
 
         }
-        System.out.println(certs[0].toString());
-        System.out.println("Edasi:");
-        System.out.println(certs[0].getEncoded());
         X509Certificate x509=(X509Certificate)certs[0];
-        System.out.println(x509.getIssuerDN());
-        /* algset urli tuleks võrrelda alternatiivsete nimede vastu */
+        /** algset urli tuleks võrrelda alternatiivsete nimede vastu **/
         System.out.println(x509.getSubjectAlternativeNames());
-        System.out.println(x509.getSubjectX500Principal());
-        System.out.println(x509.getSubjectUniqueID());
-        System.out.println(x509.getSignature().length);
-        /* signatuuri tüüpi on vaja digesti arvutamiseks  */
-        System.out.println(x509.getSigAlgName());
-        /** System.out.print(x509.getTBSCertificate().toString());  **/
-        System.out.println(x509.getSignature());
+
+
+        /* Collection<?> names = x509.getSubjectAlternativeNames();
+        for (Collection<?> name : names) {
+            System.out.println(name);
+        } */
+
+        /*
+
+        if (x509.getSubjectAlternativeNames().contains("data.internet.ee"))   {
+            return "Offered certificate doesnot match url";
+        }
+        */
+
+        /* if (x509.getSubjectAlternativeNames().contains(url)) {
+            System.out.println("yipkayee");
+        } */
+
+
+        /* System.out.println(x509.getSignature()); */
         byte[] hash;
-        String hexDataFromCert;
 
 
-        /** digest valitakse vastavalt dnsi kirjele **/
-        System.out.println(algo);
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        hash = digest.digest(certs[0].getEncoded());
-        hexDataFromCert = bytesToHexString(hash);
-        System.out.println(hexDataFromCert);
+        /** digest is chosen according to | https://tools.ietf.org/html/rfc6698#section-7.4 **/
+
+        if (algo == 1) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            hash = digest.digest(certs[0].getEncoded());
+            hexDataFromCert = bytesToHexString(hash);
+        }
+
+        else if (algo == 2) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            hash = digest.digest(certs[0].getEncoded());
+            hexDataFromCert = bytesToHexString(hash);
+        }
+
+        else {
+            hash = certs[0].getEncoded();
+            hexDataFromCert = bytesToHexString(hash);
+        }
 
         return hexDataFromCert.toUpperCase();
     }
