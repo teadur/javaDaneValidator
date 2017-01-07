@@ -2,7 +2,6 @@ package JavaDaneValidator; /**
  * Created by georg on 3.10.2016.
  */
 
-import sun.security.x509.SubjectAlternativeNameExtension;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +18,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
-import java.util.Collection;
 
 
 public class GetCert {
@@ -73,7 +71,13 @@ public class GetCert {
         URL httpsURL = new URL("https://"+ url);
 
         HttpsURLConnection connection = (HttpsURLConnection) httpsURL.openConnection();
-        connection.connect();
+        try {
+            connection.connect();
+        }
+        catch(java.net.UnknownHostException e){
+            return "Unknown Host";
+        }
+
         Certificate[] certs = connection.getServerCertificates();
         for (Certificate cer : certs) {
             System.out.println(cer.getPublicKey());
@@ -81,7 +85,7 @@ public class GetCert {
 
         }
         X509Certificate x509=(X509Certificate)certs[0];
-        /** algset urli tuleks võrrelda alternatiivsete nimede vastu **/
+        /**TODO: algset urli tuleks võrrelda alternatiivsete nimede vastu **/
         System.out.println(x509.getSubjectAlternativeNames());
 
 

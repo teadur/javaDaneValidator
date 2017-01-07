@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 /**
 Impordime exceptionite jaoks asjad
@@ -43,6 +44,7 @@ public class FXMLController {
         /** String vordle = validate.CertHashCompear("1","1"); **/
 
         compear.setText(vordle);
+        compear.setFill(validate.varv);
         System.out.println(dnskirje.hash);
         System.out.println(dnskirje.matchingtype);
 

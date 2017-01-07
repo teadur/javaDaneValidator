@@ -61,12 +61,14 @@ public class GetDNS {
                 }
             }
 
-        System.err.println("Found!");
+        /* System.err.println("Found!");
         System.err.println("Response Message: " + responseMessage);
+        */
     }
         else if(lookup.getResult() == Lookup.HOST_NOT_FOUND)
     {
         System.err.println("Not found.");
+        responseMessage = "Not Found.";
         return "Not Found.";
     }
         else
