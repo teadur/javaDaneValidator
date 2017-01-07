@@ -29,6 +29,9 @@
     <Text GridPane.columnIndex="1" GridPane.rowIndex="5" >CERT:</Text>
     <Text fx:id="cert"
           GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+    <Text GridPane.columnIndex="1" GridPane.rowIndex="6" >COMPEAR:</Text>
+    <Text fx:id="compear"
+          GridPane.columnIndex="2" GridPane.rowIndex="6"/>
 
 
 

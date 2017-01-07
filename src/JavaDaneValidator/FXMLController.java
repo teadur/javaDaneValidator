@@ -18,6 +18,7 @@ public class FXMLController {
     @FXML
     private Text dns;
     public Text cert;
+    public Text compear;
 
 
     @FXML
@@ -30,10 +31,16 @@ public class FXMLController {
         /** new GetDNS("test.ee"); **/
         GetDNS dnskirje = new GetDNS();
         GetCert sslcert = new GetCert();
+        Validate validate = new Validate();
+
+        String dnshash = dnskirje.getTLSA(url.getText());
+        String sslhash = sslcert.GetDigest(url.getText());
         /** String cert = GetCert.main("test"); **/
         /** System.out.println(sslcert); **/
-        dns.setText(dnskirje.getTLSA(url.getText()));
-        cert.setText(sslcert.GetDigest(url.getText()));
+        dns.setText(dnshash);
+        cert.setText(sslhash);
+        String vordle = validate.CertHashCompear(dnshash,sslhash);
+        compear.setText(vordle);
 
     }
     @FXML protected void handleSubmitButtonExit(ActionEvent event) {
