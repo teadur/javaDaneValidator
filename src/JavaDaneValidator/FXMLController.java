@@ -34,7 +34,7 @@ public class FXMLController {
         Validate validate = new Validate();
 
         String dnshash = dnskirje.getTLSA(url.getText());
-        String sslhash = sslcert.GetDigest(url.getText());
+        String sslhash = sslcert.GetDigest(url.getText(),dnskirje.matchingtype);
         /** String cert = GetCert.main("test"); **/
         /** System.out.println(sslcert); **/
         dns.setText(dnshash);
@@ -43,6 +43,8 @@ public class FXMLController {
         /** String vordle = validate.CertHashCompear("1","1"); **/
 
         compear.setText(vordle);
+        System.out.println(dnskirje.hash);
+        System.out.println(dnskirje.matchingtype);
 
     }
     @FXML protected void handleSubmitButtonExit(ActionEvent event) {

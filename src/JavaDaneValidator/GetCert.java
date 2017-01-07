@@ -26,7 +26,13 @@ import java.security.PublicKey;
 
 public class GetCert {
 
-    public String GetDigest(String argument) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+    String url;
+    int algo;
+
+    public String GetDigest(String argument,int matchingtype) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+
+        url = argument;
+        algo = matchingtype;
 
        /*
      *  fix for
@@ -93,6 +99,7 @@ public class GetCert {
 
 
         /** digest valitakse vastavalt dnsi kirjele **/
+        System.out.println(algo);
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         hash = digest.digest(certs[0].getEncoded());
         hexDataFromCert = bytesToHexString(hash);
