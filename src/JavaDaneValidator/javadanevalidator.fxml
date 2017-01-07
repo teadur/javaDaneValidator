@@ -12,7 +12,7 @@
 
     <HBox spacing="1" alignment="top_left"
           GridPane.columnIndex="2" GridPane.rowIndex="1">
-        <TextField fx:id="url">data.internet.ee</TextField>
+        <TextField fx:id="url">torproject.org</TextField>
         <Button text="Validate"
                 onAction="#handleSubmitButtonAction"/>
     </HBox>

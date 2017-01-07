@@ -12,7 +12,7 @@ public class GetDNS {
     String url;
     String hash;
     int matchingtype;
-    int certusage;
+    int selector;
 
     public static void main(String[] args)  {
 
@@ -52,7 +52,7 @@ public class GetDNS {
                      *  tlsaRecord.getCertificateAssociationData =  B@3d82c5f3 binaar väljund
                      *  Kui tõesti ei saa kuidagi otse õiget väärtust kätte tuleb ilmselt algset stringi lõhkuda
                      */
-                    certusage = tlsaRecord.getCertificateUsage();
+                    selector = tlsaRecord.getSelector();
                     matchingtype = tlsaRecord.getMatchingType();
                     String[] kogustring = tlsaRecord.toString().split(" ");
                     hash = kogustring[3];

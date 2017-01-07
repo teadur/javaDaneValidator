@@ -24,13 +24,15 @@ public class GetCert {
 
     String url;
     int algo;
+    int selector;
     String hexDataFromCert;
 
 
-    public String GetDigest(String argument,int matchingtype) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+    public String GetDigest(String argument,int matchingtype, int cert) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
 
         url = argument;
         algo = matchingtype;
+        selector = cert;
 
         /**
      *  fix for
@@ -106,27 +108,35 @@ public class GetCert {
         } */
 
 
-        /* System.out.println(x509.getSignature()); */
-        byte[] hash;
+        System.out.println(x509.getPublicKey());
+        byte[] fullcert;
+        byte[] pubkey;
 
 
         /** digest is chosen according to | https://tools.ietf.org/html/rfc6698#section-7.4 **/
-
+        /** TODO: handlida on vaja olukord kus võtta tuleb Pubkeyst hash mitte kogu cerdist **/
         if (algo == 1) {
+            System.out.println(selector);
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            hash = digest.digest(certs[0].getEncoded());
-            hexDataFromCert = bytesToHexString(hash);
+            if (selector == 0) {
+                fullcert = digest.digest(certs[0].getEncoded());
+                hexDataFromCert = bytesToHexString(fullcert);
+            }
+            if (selector == 1) {
+                pubkey = digest.digest(certs[0].getPublicKey().getEncoded());
+                hexDataFromCert = bytesToHexString(pubkey);
+            }
         }
 
         else if (algo == 2) {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
-            hash = digest.digest(certs[0].getEncoded());
-            hexDataFromCert = bytesToHexString(hash);
+            fullcert = digest.digest(certs[0].getEncoded());
+            hexDataFromCert = bytesToHexString(fullcert);
         }
 
         else {
-            hash = certs[0].getEncoded();
-            hexDataFromCert = bytesToHexString(hash);
+            fullcert = certs[0].getEncoded();
+            hexDataFromCert = bytesToHexString(fullcert);
         }
 
         return hexDataFromCert.toUpperCase();

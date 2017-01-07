@@ -7,13 +7,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 /**
 Impordime exceptionite jaoks asjad
  **/
-import org.xbill.DNS.TextParseException;
-import java.net.UnknownHostException;
 
 public class FXMLController {
     @FXML
@@ -35,7 +32,7 @@ public class FXMLController {
         Validate validate = new Validate();
 
         String dnshash = dnskirje.getTLSA(url.getText());
-        String sslhash = sslcert.GetDigest(url.getText(),dnskirje.matchingtype);
+        String sslhash = sslcert.GetDigest(url.getText(),dnskirje.matchingtype,dnskirje.selector);
         /** String cert = GetCert.main("test"); **/
         /** System.out.println(sslcert); **/
         dns.setText(dnshash);
