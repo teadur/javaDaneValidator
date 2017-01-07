@@ -16,19 +16,24 @@ import java.net.UnknownHostException;
 
 public class FXMLController {
     @FXML
-    private Text actiontarget;
+    private Text dns;
+    public Text cert;
+
 
     @FXML
     private TextField url;
 
-    @FXML protected void handleSubmitButtonAction(ActionEvent event) throws TextParseException, UnknownHostException {
+    @FXML protected void handleSubmitButtonAction(ActionEvent event) throws Exception {
         /** actiontarget.setText("Hello world action"); **/
 
-        actiontarget.setText(url.getText());
+        /** cert.setText(url.getText()); **/
         /** new GetDNS("test.ee"); **/
         GetDNS dnskirje = new GetDNS();
-
-        actiontarget.setText(dnskirje.getTLSA(url.getText()));
+        GetCert sslcert = new GetCert();
+        /** String cert = GetCert.main("test"); **/
+        /** System.out.println(sslcert); **/
+        dns.setText(dnskirje.getTLSA(url.getText()));
+        cert.setText(sslcert.GetDigest(url.getText()));
 
     }
     @FXML protected void handleSubmitButtonExit(ActionEvent event) {

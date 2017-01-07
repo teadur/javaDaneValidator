@@ -3,6 +3,8 @@ package JavaDaneValidator; /**
  */
 import org.bouncycastle.util.encoders.Base64;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -10,8 +12,12 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.security.KeyManagementException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
 
 /* randomcert deps */
@@ -19,8 +25,10 @@ import java.math.BigInteger;
 import java.security.PublicKey;
 
 public class GetCert {
-    public static void main(String[] args) throws Exception {
-    /*
+
+    public String GetDigest(String url) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+
+       /*
      *  fix for
      *    Exception in thread "main" javax.net.ssl.SSLHandshakeException:
      *       sun.security.validator.ValidatorException:
@@ -90,6 +98,7 @@ public class GetCert {
         hexDataFromCert = bytesToHexString(hash);
         System.out.println(hexDataFromCert);
 
+        return hexDataFromCert;
     }
 
     /**
@@ -104,5 +113,12 @@ public class GetCert {
             sb.append(String.format("%02x", b & 0xff));
         }
         return sb.toString();
+
+
+
+    }
+
+    public static void main(String[] args) {
+
     }
 }

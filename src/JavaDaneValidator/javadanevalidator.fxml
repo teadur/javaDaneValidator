@@ -12,7 +12,7 @@
 
     <HBox spacing="1" alignment="top_right"
           GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <TextField fx:id="url"></TextField>
+        <TextField fx:id="url">data.internet.ee</TextField>
         <Button text="Validate"
                 onAction="#handleSubmitButtonAction"/>
     </HBox>
@@ -22,6 +22,8 @@
                 onAction="#handleSubmitButtonExit"/>
     </HBox>
 
-    <Text fx:id="actiontarget"
+    <Text fx:id="dns"
           GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <Text fx:id="cert"
+          GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 </GridPane>
