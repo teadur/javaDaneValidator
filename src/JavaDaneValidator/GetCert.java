@@ -66,6 +66,8 @@ public class GetCert {
         };
         // Install the all-trusting host verifier
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+
+
     /**
      * end of the fix
      **/
@@ -86,7 +88,8 @@ public class GetCert {
             System.out.println(cer.getType());
 
         }
-        /**TODO: kui certe on palju siis tuleb valida õige cert, ilmselt nime järgi **/
+        /**TODO: kui certe on palju siis tuleb valida õige cert, ilmselt nime järgi - tundub et viga on hoopis selles et kasutusel olev java ei sa SNI-ga väga hästi hakkama
+         * http://javabreaks.blogspot.com.ee/2015/12/java-ssl-handshake-with-server-name.html  **/
         X509Certificate x509=(X509Certificate)certs[0];
         /**TODO: algset urli tuleks võrrelda alternatiivsete nimede vastu **/
         System.out.println(x509.getSubjectAlternativeNames());
