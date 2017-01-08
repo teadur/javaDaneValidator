@@ -24,6 +24,7 @@ public class GetDNS {
     public String getTLSA(String argument) throws TextParseException, UnknownHostException{
 
         url = argument;
+        /** TODO: allow services on other ports then 443 **/
         Lookup lookup = new Lookup("_443._tcp." + argument, Type.TLSA);
 
         /**
