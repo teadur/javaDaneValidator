@@ -27,12 +27,14 @@ public class GetCert {
     boolean domainmatch;
 
 
+
     public String GetDigest(String argument,int matchingtype, int cert, boolean dnsok, int certusage) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
 
         url = argument;
         algo = matchingtype;
         selector = cert;
         usage = certusage;
+
 
 
         /**
@@ -121,9 +123,27 @@ public class GetCert {
         }
 
 
-        System.out.println(x509.getPublicKey());
-        byte[] fullcert;
-        byte[] pubkey;
+        // System.out.println(x509.getPublicKey());
+        byte[] hash;
+        byte[] finalcert;
+
+        // certusage=0 (CA contrain) tuleb võtta cert 1 - või tegelikkuses kui chain oleks pikem siis n'nda seest
+        // certusage=3 (Domain constrain) tuleb võtta cert 0
+        // on olemas veel certusage 1 ja 2 aga need pole hetkel minul implementeeritud. https://tools.ietf.org/html/rfc6698#section-7.2
+
+        if (certusage == 0) {
+            finalcert = certs[1].getEncoded();
+        }
+        else if (certusage == 3) {
+            if (selector == 0) {
+                finalcert = certs[0].getEncoded();
+            }
+
+            else  { finalcert = certs[0].getPublicKey().getEncoded(); }
+
+        }
+        else finalcert = certs[0].getEncoded();
+
 
 
         /** digest is chosen according to | https://tools.ietf.org/html/rfc6698#section-7.4 **/
@@ -133,35 +153,21 @@ public class GetCert {
         if (algo == 1) {
 
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            if (selector == 0) {
-                System.out.println("Fedora debug");
-                //
-                fullcert = digest.digest(certs[1].getEncoded());
-                hexDataFromCert = bytesToHexString(fullcert);
-            }
-            if (selector == 1) {
-                pubkey = digest.digest(certs[0].getPublicKey().getEncoded());
-                hexDataFromCert = bytesToHexString(pubkey);
-            }
+                hash = digest.digest(finalcert);
+                hexDataFromCert = bytesToHexString(hash);
         }
 
         else if (algo == 2) {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
-            if (selector == 0) {
-                fullcert = digest.digest(certs[0].getEncoded());
-                hexDataFromCert = bytesToHexString(fullcert);
-            }
-            if (selector == 1) {
-                pubkey = digest.digest(certs[0].getPublicKey().getEncoded());
-                hexDataFromCert = bytesToHexString(pubkey);
-            }
+                hash = digest.digest(finalcert);
+                hexDataFromCert = bytesToHexString(hash);
         }
 
         else {
             if (dnsok == true && algo == 0) {
                 /** TODO: testimiseks/implementeerimiseks oleks vaja leida üks ilma hashita TLSA kirje, hetkel see asi katki **/
-                fullcert = certs[0].getEncoded();
-                hexDataFromCert = bytesToHexString(fullcert);
+
+                hexDataFromCert = bytesToHexString(finalcert);
                 System.out.println("No hash debug");
                 return "siit tuleb hashita vastus";
             }
