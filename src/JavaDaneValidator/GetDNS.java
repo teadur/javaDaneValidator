@@ -38,6 +38,7 @@ public class GetDNS {
         String responseMessage = null;
         if(lookup.getResult() == Lookup.SUCCESSFUL) {
 
+        /** TODO: valideeri dnsseci **/
 
         for (int i = 0; i < records.length; i++)
             {
@@ -55,6 +56,7 @@ public class GetDNS {
                      *  Kui tõesti ei saa kuidagi otse õiget väärtust kätte tuleb ilmselt algset stringi lõhkuda
                      */
                     dnsok=true;
+                    tlsaRecord.
                     selector = tlsaRecord.getSelector();
                     matchingtype = tlsaRecord.getMatchingType();
                     kogustring =  tlsaRecord.toString();
