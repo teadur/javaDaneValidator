@@ -116,7 +116,7 @@ public class GetCert {
 
         }
         System.out.println(domainmatch);
-        /**TODO:  mingil põhjusel ei jõuta kunagi siia **/
+        /**TODO:  hetkel ei tööta wildcard sertifikaadid **/
         if (!domainmatch) {
             System.out.println("DEBUG: FAIL name not present");
             return "Certificate doesnot match domain";
