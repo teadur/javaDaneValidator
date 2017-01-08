@@ -68,14 +68,13 @@ public class GetCert {
         // Install the all-trusting host verifier
         /* HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid); */
 
-        URL httpsURL = new URL("https://"+ url);
-
 
 
         /**
          * end of the fix
          **/
 
+        URL httpsURL = new URL("https://"+ url);
 
 
         HttpsURLConnection connection = (HttpsURLConnection) httpsURL.openConnection();
@@ -100,10 +99,9 @@ public class GetCert {
 
 
 
-        /**TODO: kui certe on palju siis tuleb valida õige cert, ilmselt nime järgi - tundub et viga on hoopis selles et kasutusel olev java ei sa SNI-ga väga hästi hakkama
-         * http://javabreaks.blogspot.com.ee/2015/12/java-ssl-handshake-with-server-name.html  **/
+
         X509Certificate x509=(X509Certificate)certs[0];
-        /**TODO: algset urli tuleks võrrelda alternatiivsete nimede vastu **/
+        /**TODO: algset urli tuleks võrrelda alternatiivsete nimede vastu  - tegelikult lahendab selle ära libra juba ise, püüda aga oleks vaja kinni antud olukorra exception **/
         System.out.println(x509.getSubjectAlternativeNames());
 
         if (x509.getSubjectAlternativeNames().toString().contains(url)) {
@@ -114,10 +112,9 @@ public class GetCert {
 
         }
         System.out.println(domainmatch);
-
+        /**TODO:  mingil põhjusel ei jõuta kunagi siia **/
         if (domainmatch != true) {
             return "Certificate doesnot match domain";
-
         }
 
 
@@ -127,7 +124,9 @@ public class GetCert {
 
 
         /** digest is chosen according to | https://tools.ietf.org/html/rfc6698#section-7.4 **/
-        /** TODO: handlida on vaja olukord kus võtta tuleb Pubkeyst hash mitte kogu cerdist **/
+        /** Vastavalt algoritmile valime millist hashi kasutame, vastavalt selectorile saame teada kas hash tuleb v
+         * võtta kogu sertifikaadist või pubkeyst**/
+
         if (algo == 1) {
             System.out.println(selector);
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -155,6 +154,7 @@ public class GetCert {
 
         else {
             if (dnsok == true) {
+                /** TODO: testimiseks/implementeerimiseks oleks vaja leida üks ilma hashita TLSA kirje, hetkel see asi katki **/
                 fullcert = certs[0].getEncoded();
                 hexDataFromCert = bytesToHexString(fullcert);
 

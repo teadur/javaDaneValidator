@@ -1,7 +1,6 @@
 package JavaDaneValidator;
 
 import org.xbill.DNS.*;
-
 import java.net.UnknownHostException;
 
 /**
@@ -66,9 +65,6 @@ public class GetDNS {
                 }
             }
 
-        /* System.err.println("Found!");
-        System.err.println("Response Message: " + responseMessage);
-        */
     }
         else if(lookup.getResult() == Lookup.HOST_NOT_FOUND)
     {
