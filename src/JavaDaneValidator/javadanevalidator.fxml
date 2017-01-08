@@ -24,6 +24,9 @@
                 onAction="#handleSubmitButtonExit"/>
     </HBox>
 
+    <Text GridPane.columnIndex="1" GridPane.rowIndex="3" >Domain:</Text>
+    <Text fx:id="domain"
+          GridPane.columnIndex="2" GridPane.rowIndex="3"/>
     <Text GridPane.columnIndex="1" GridPane.rowIndex="4" >DNS:</Text>
     <Text fx:id="dns"
           GridPane.columnIndex="2" GridPane.rowIndex="4"/>

@@ -19,6 +19,7 @@ public class FXMLController {
     private Text dns;
     public Text cert;
     public Text compear;
+    public Text domain;
 
 
     @FXML
@@ -40,6 +41,7 @@ public class FXMLController {
         String sslhash = sslcert.GetDigest(url.getText(),dnskirje.matchingtype,dnskirje.selector,dnskirje.dnsok,dnskirje.certusage);
         /** String cert = GetCert.main("test"); **/
         /** System.out.println(sslcert); **/
+        domain.setText(url.getText());
         dns.setText(dnshash);
         cert.setText(sslhash);
         String vordle = validate.CertHashCompear(dnshash,sslhash,dnskirje.certusage,dnskirje.selector,dnskirje.matchingtype);
