@@ -16,8 +16,12 @@ TODO: Implement DNSSEC validation on TLSA record fetch
 Example domains to test:
 
 torproject.org
+
 freebsd.org
+
 data.internet.ee
+
+fedoraproject.org
 
 more: http://www.internetsociety.org/deploy360/resources/dane-test-sites/
 
