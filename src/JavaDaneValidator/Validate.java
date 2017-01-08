@@ -13,14 +13,33 @@ import static javafx.scene.paint.Color.RED;
  */
 public class Validate {
     Paint varv;
-    public String CertHashCompear(String dns, String cert)
+    public String CertHashCompear(String dns, String cert, int certusage, int selector, int matchingtype)
 
     {
 
         String response;
 
+
         if (Objects.equals(cert, dns)) {
-            response="SSL and DNS data match";
+            response="Hashes Match | ";
+            if (certusage == 0)
+            { response += "CA constrained | "; }
+            if (certusage == 3)
+            { response += "Domain issued | "; }
+
+            if (selector == 0)
+            { response += "from FULL Certificate | "; }
+            if (selector == 1)
+            { response += "from Certificate Publickey | "; }
+
+            if (matchingtype == 1)
+            { response += "SHA-256 algorithm used"; }
+
+            if (matchingtype == 2) {
+                response += "SHA-512 algorithm used";
+            }
+
+
             System.out.println("vordsed");
             varv = GREEN;
         }

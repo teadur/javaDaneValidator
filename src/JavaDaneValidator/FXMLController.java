@@ -42,7 +42,7 @@ public class FXMLController {
         /** System.out.println(sslcert); **/
         dns.setText(dnshash);
         cert.setText(sslhash);
-        String vordle = validate.CertHashCompear(dnshash,sslhash);
+        String vordle = validate.CertHashCompear(dnshash,sslhash,dnskirje.certusage,dnskirje.selector,dnskirje.matchingtype);
         /** String vordle = validate.CertHashCompear("1","1"); **/
 
         compear.setText(vordle);
