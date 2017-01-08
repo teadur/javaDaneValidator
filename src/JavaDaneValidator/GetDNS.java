@@ -56,7 +56,6 @@ public class GetDNS {
                      *  Kui tõesti ei saa kuidagi otse õiget väärtust kätte tuleb ilmselt algset stringi lõhkuda
                      */
                     dnsok=true;
-                    tlsaRecord.
                     selector = tlsaRecord.getSelector();
                     matchingtype = tlsaRecord.getMatchingType();
                     kogustring =  tlsaRecord.toString();
@@ -73,9 +72,8 @@ public class GetDNS {
     }
         else if(lookup.getResult() == Lookup.HOST_NOT_FOUND)
     {
-        System.err.println("Not found.");
-        responseMessage = "Not Found.";
-        return "Not Found.";
+        System.err.println("TLSA record not found .");
+        return "TLSA record not found.";
     }
         else
     {
