@@ -11,6 +11,17 @@ After fetching the TLSA record SSL Certificate from host in question is fetched 
 depending on the parameters set in TLSA record, after that the calculated hash and hash provided in TLSA record are compeared.
 
  
- TODO: Implement DNSSEC validation on TLSA record fetch
+TODO: Implement DNSSEC validation on TLSA record fetch
  
- 
+Example domains to test:
+
+torproject.org
+freebsd.org
+data.internet.ee
+
+more: http://www.internetsociety.org/deploy360/resources/dane-test-sites/
+
+
+Related:
+
+http://dane.dns-oarc.net/

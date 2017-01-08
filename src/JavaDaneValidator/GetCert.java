@@ -22,15 +22,17 @@ public class GetCert {
     String url;
     int algo;
     int selector ;
+    int usage;
     String hexDataFromCert;
     boolean domainmatch;
 
 
-    public String GetDigest(String argument,int matchingtype, int cert, boolean dnsok) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
+    public String GetDigest(String argument,int matchingtype, int cert, boolean dnsok, int certusage) throws NoSuchAlgorithmException, KeyManagementException, IOException, CertificateEncodingException, CertificateParsingException {
 
         url = argument;
         algo = matchingtype;
         selector = cert;
+        usage = certusage;
 
 
         /**
@@ -106,14 +108,15 @@ public class GetCert {
 
         if (x509.getSubjectAlternativeNames().toString().contains(url)) {
 
-            System.out.println("die");
+            System.out.println("DEBUG: Certificate name is present");
             System.out.println(x509.getSubjectAlternativeNames().toString());
             domainmatch = true;
 
         }
         System.out.println(domainmatch);
         /**TODO:  mingil põhjusel ei jõuta kunagi siia **/
-        if (domainmatch != true) {
+        if (!domainmatch) {
+            System.out.println("DEBUG: FAIL name not present");
             return "Certificate doesnot match domain";
         }
 
@@ -126,12 +129,14 @@ public class GetCert {
         /** digest is chosen according to | https://tools.ietf.org/html/rfc6698#section-7.4 **/
         /** Vastavalt algoritmile valime millist hashi kasutame, vastavalt selectorile saame teada kas hash tuleb v
          * võtta kogu sertifikaadist või pubkeyst**/
-
+        System.out.println("Selector: "+ selector);
         if (algo == 1) {
-            System.out.println(selector);
+
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             if (selector == 0) {
-                fullcert = digest.digest(certs[0].getEncoded());
+                System.out.println("Fedora debug");
+                //
+                fullcert = digest.digest(certs[1].getEncoded());
                 hexDataFromCert = bytesToHexString(fullcert);
             }
             if (selector == 1) {
@@ -153,11 +158,11 @@ public class GetCert {
         }
 
         else {
-            if (dnsok == true) {
+            if (dnsok == true && algo == 0) {
                 /** TODO: testimiseks/implementeerimiseks oleks vaja leida üks ilma hashita TLSA kirje, hetkel see asi katki **/
                 fullcert = certs[0].getEncoded();
                 hexDataFromCert = bytesToHexString(fullcert);
-
+                System.out.println("No hash debug");
                 return "siit tuleb hashita vastus";
             }
             else {

@@ -12,6 +12,7 @@ public class GetDNS {
     String hash;
     int matchingtype;
     int selector;
+    int certusage;
     String kogustring;
     boolean dnsok;
 
@@ -58,6 +59,7 @@ public class GetDNS {
                     dnsok=true;
                     selector = tlsaRecord.getSelector();
                     matchingtype = tlsaRecord.getMatchingType();
+                    certusage = tlsaRecord.getCertificateUsage();
                     kogustring =  tlsaRecord.toString();
                     String[] TLSA = tlsaRecord.toString().split(" ");
                     hash = TLSA[3];
